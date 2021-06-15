@@ -10,6 +10,9 @@ import {
 } from 'react-native'
 import { RootStackParams } from '../navigation/Navigation'
 import theme from '../theme/theme'
+import useMovieDetails from '../hooks/useMovieDetails'
+import { ActivityIndicator } from 'react-native'
+import MovieDetails from '../components/MovieDetails'
 
 const { height } = Dimensions.get('window')
 
@@ -18,6 +21,7 @@ interface Props extends StackScreenProps<RootStackParams, 'DetailScreen'> {}
 const DetailScreen = ({ route }: Props) => {
   const movie = route.params
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+  const { loading, movieFull, cast } = useMovieDetails(movie.id)
 
   return (
     <ScrollView>
@@ -33,6 +37,12 @@ const DetailScreen = ({ route }: Props) => {
         <Text style={styles.subTitle}>{movie.original_title}</Text>
         <Text style={styles.title}>{movie.title}</Text>
       </View>
+
+      {loading ? (
+        <ActivityIndicator color="gray" size={25} style={{ marginTop: 25 }} />
+      ) : (
+        <MovieDetails cast={cast} movieFull={movieFull!} />
+      )}
     </ScrollView>
   )
 }
@@ -41,14 +51,14 @@ export default DetailScreen
 
 const styles = StyleSheet.create({
   posterImage: {
-    width: '100%',
-    backgroundColor: 'red',
-    height: height * 0.7,
+    flex: 1,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25
   },
   imgContainer: {
-    flex: 1
+    height: height * 0.7,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25
   },
   marginContainer: {
     marginHorizontal: 20,
@@ -61,5 +71,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold'
+  },
+  rating: {
+    color: 'gold'
   }
 })

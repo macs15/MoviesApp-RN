@@ -13,12 +13,12 @@ const theme = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 3
+      height: 6
     },
-    shadowOpacity: 0.41,
-    shadowRadius: 8.11,
+    shadowOpacity: 0.29,
+    shadowRadius: 8.3,
 
-    elevation: 10
+    elevation: 8
   }
 })
 
