@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     elevation: 4
   },
   image: {
-    width: width * 0.25,
+    width: width * 0.2,
     borderRadius: 10
   },
   cardTitle: {
